@@ -17,7 +17,7 @@ import sys
 app = Flask(__name__)
 
 client = MongoClient(
-    'mongodb://iota1:3qWZi7A5cQaiEfQC@192.168.1.201:27017/iotatracker')
+    'mongodb://localhost:27017/iotatracker')
 
 db = client.iotatracker
 
