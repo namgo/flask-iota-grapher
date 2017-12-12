@@ -18,6 +18,7 @@ logging.basicConfig(level=logging.DEBUG, handlers=[fh, sh])
 
 client = MongoClient('mongodb://localhost:27017/iotatracker')
 db = client.iotatracker
+collection = db['trades']
 
 
 wss = BtfxWss()
@@ -45,7 +46,9 @@ while True:
             continue
         trade_data = trade[1]
         # trade_id, timestamp, amount, price
-        
+        collection.insert_one({'timestamp': trade_data[1],
+                               'amount': trade_data[2],
+                               'price': trade_data[3]})
 
 # Unsubscribing from channels:
 wss.unsubscribe_from_trades('IOTUSD')
