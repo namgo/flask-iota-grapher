@@ -42,6 +42,7 @@ while True:
         break
     while not trade_q.empty():
         trade = trade_q.get()
+        print(trade[0])
         if not trade[0] == 'te':
             continue
         trade_data = trade[1]
