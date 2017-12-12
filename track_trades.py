@@ -43,9 +43,9 @@ while True:
     while not trade_q.empty():
         trade = trade_q.get()
         print(trade[0])
-        if not trade[0] == 'te':
+        if not trade[0][0] == 'te':
             continue
-        trade_data = trade[1]
+        trade_data = trade[0][1]
         # trade_id, timestamp, amount, price
         collection.insert_one({
             'trade_id': trade_data[0],
