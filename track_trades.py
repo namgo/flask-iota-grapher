@@ -46,9 +46,11 @@ while True:
             continue
         trade_data = trade[1]
         # trade_id, timestamp, amount, price
-        collection.insert_one({'timestamp': trade_data[1],
-                               'amount': trade_data[2],
-                               'price': trade_data[3]})
+        collection.insert_one({
+            'trade_id': trade_data[0],
+            'timestamp': trade_data[1],
+            'amount': trade_data[2],
+            'price': trade_data[3]})
 
 # Unsubscribing from channels:
 wss.unsubscribe_from_trades('IOTUSD')
