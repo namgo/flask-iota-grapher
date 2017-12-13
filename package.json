@@ -4,6 +4,7 @@
   "description": "track iota trades",
   "main": "track_trades.js",
   "dependencies": {
-    "bitfinex-api-node": "^1.2.1"
+    "bitfinex-api-node": "^1.2.1",
+    "mongodb": "^3.0.0-rc0"
   }
 }

@@ -2,6 +2,8 @@ const BFX = require('bitfinex-api-node')
 const MongoClient = require('mongodb').MongoClient;
 const api = require('./keys')
 
+const url = 'mongodb://localhost:27017/iotatracker';
+
 const opts = {
   version: 2,
   transform: true
@@ -24,13 +26,14 @@ bws.on('open', () => {
   // bws.auth()
 })
 
+//MongoClient.connect(url, function(err, db) { 
 bws.on('trade', (pair, trade) => {
-  //console.log('Trade:', trade)
     for (var i = 0; i < trade.length; i++) {
-	if (trade[i] === 'te') {
-	    console.log(trade[i+1])
+	if (trade[i] != 'tu') {
+	    console.log('trade')
+	    console.log(trade[i])
 	}
     }
 })
-
+//})
 bws.on('error', console.error)
