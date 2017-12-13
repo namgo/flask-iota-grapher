@@ -52,7 +52,7 @@ def main():
         sell_transactions = {}
 
         cursor = collection.find({"$and": [{"timestamp": {"$gte": minimum}},
-                                {"timestamp": {"$lte": maximum}}]})
+                                {"timestamp": {"$lte": maximum}}]}).sort("timestamp", pymongo.ASCENDING)
 
         for document in cursor:
             key = math.floor(document['timestamp'] / divideby)
