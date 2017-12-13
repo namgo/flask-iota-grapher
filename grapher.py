@@ -111,6 +111,7 @@ def main():
                           x_axis_type='datetime', tools=[hover,
                                                          crosshair, wheelzoom,
                                                          reset])
+        print(x_buy, file=sys.stderr)
         plot.xaxis.major_label_orientation = pi/4
         plot_per.xaxis.major_label_orientation = pi/4
         plot.line(x_buy, y_buy, color='red', line_width=2, legend="buy")
