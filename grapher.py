@@ -12,6 +12,7 @@ import time
 from bokeh.embed import components
 import math
 from pymongo import MongoClient
+import pymongo
 import sys
 
 app = Flask(__name__)
