@@ -11,6 +11,7 @@ from datetime import datetime
 import time
 from bokeh.embed import components
 import math
+import collections
 from pymongo import MongoClient
 import pymongo
 import sys
@@ -82,7 +83,7 @@ def main():
         y_buy_per_transaction = []
         y_sell_per_transaction = []
 
-        for minute, amt in amount_buy.items():
+        for minute, amt in collections.OrderedDict(sorted(amount_buy.items())):
             x_buy.append(minute*divideby)
             y_buy.append(amt)
             y_buy_per_transaction.append(amt/buy_transactions[minute])
