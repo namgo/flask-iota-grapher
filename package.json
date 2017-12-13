@@ -1,0 +1,9 @@
+{
+  "name": "track-iota-trades",
+  "version": "0.0.1",
+  "description": "track iota trades",
+  "main": "track_trades.js",
+  "dependencies": {
+    "bitfinex-api-node": "^1.2.1"
+  }
+}
