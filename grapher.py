@@ -82,8 +82,10 @@ def main():
 
         y_buy_per_transaction = []
         y_sell_per_transaction = []
+        amount_buy_minutes = sorted(amount_buy.keys())
 
-        for minute, amt in sorted(amount_buy.values()).items():
+        for minute in amount_buy_minutes:
+            amt = amount_buy[minute]
             x_buy.append(minute*divideby)
             y_buy.append(amt)
             y_buy_per_transaction.append(amt/buy_transactions[minute])
