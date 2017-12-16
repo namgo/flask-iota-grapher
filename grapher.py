@@ -69,6 +69,7 @@ def get_amount_trades(cursor, divideby):
             ]
         except KeyError:
             amount_trades[readable_key] = [0, 0, 0, 0]
+    amount_trades = collections.OrderedDict(sorted(amount_trades.items()))
 
     return (amount_buy,
             amount_sell,
