@@ -46,7 +46,7 @@
 			    <th>Buys</th>
 			    <th>Sells</th>
 			</tr>
-		    {% for date, trade in trades.items %}
+		    {% for date, trade in trades.items() %}
 			{{date}}
 		    {% endfor %}
 		    </table>
