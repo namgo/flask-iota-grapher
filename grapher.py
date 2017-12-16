@@ -95,8 +95,6 @@ def main():
         amount_buy_minutes = sorted(amount_buy.keys())
         amount_sell_minutes = sorted(amount_sell.keys())
 
-        # {time: [buy, sell]}
-        trades = {}
 
         for minute in amount_buy_minutes:
             amt = amount_buy[minute]
@@ -152,7 +150,7 @@ def main():
                                script=script,
                                script_per=script_per,
                                div=div, div_per=div_per,
-                               trades=dict({'a': ["d", "e"]}))
+                               trades=amount_trades)
     except IndexError:
         return render_template("main.html")
     
