@@ -10,51 +10,51 @@
     </head>
     <body>
 	<h1>Monitoring the IOTA trade volume</h1>
-	    <div>
-		<p>How far would you like to go back?</p>
-		<form method="POST" action="/" id="tracebackform">
-		    <p>Go back <input type="text" name="goback" value="1440"> minutes</p>
-		    <p>With a seperation interval of: <input type="text" name="divideby" value="3600"> seconds</p>
-		    <input type="submit">
-		</form>
-	    </div>
-	    <div>
-		<p>Or specify a custom date range</p>
-		<form method="POST" action="/" id="dataform">
-		    Start: <input type="date" name="min" id="min">
-		    End: <input type="date" name="max" id="max">
-		    Seperation interval: <input type="text" name="divideby" id="divideby"> seconds
-		    <input type="submit">
-		</form>
-	    </div>
-	    {{script_per|safe}}
-	    {{script|safe}}
-	    <div class="container">
+	<div>
+	    <p>How far would you like to go back?</p>
+	    <form method="POST" action="/" id="tracebackform">
+		<p>Go back <input type="text" name="goback" value="1440"> minutes</p>
+		<p>With a seperation interval of: <input type="text" name="divideby" value="3600"> seconds</p>
+		<input type="submit">
+	    </form>
+	</div>
+	<div>
+	    <p>Or specify a custom date range</p>
+	    <form method="POST" action="/" id="dataform">
+		Start: <input type="date" name="min" id="min">
+		End: <input type="date" name="max" id="max">
+		Seperation interval: <input type="text" name="divideby" id="divideby"> seconds
+		<input type="submit">
+	    </form>
+	</div>
+	{{script_per|safe}}
+	{{script|safe}}
+	<div class="container">
 	    <h3>Chart time is GMT</h3>
-		<div class="row">
-		    <div >
-			{{div|safe}}
-		    </div>
-		    <div >
-			{{div_per|safe}}
-		    </div>
+	    <div class="row">
+		<div >
+		    {{div|safe}}
 		</div>
-		<div class="row">
-		    <table>
-			<tr>
-			    <th>Date</th>
-			    <th>Buys</th>
-			    <th>Sells</th>
-			</tr>
-			<tr>
+		<div >
+		    {{div_per|safe}}
+		</div>
+	    </div>
+	    <div class="row">
+		<table>
+		    <tr>
+			<th>Date</th>
+			<th>Buys</th>
+			<th>Sells</th>
+		    </tr>
 		    {% for date, trade in trades.items() %}
+		    <tr>
 			<td>{{date}}</td>
 			<td>{{trade[0]}}</td>
 			<td>{{trade[1]}}</td>
+		    </tr>
 		    {% endfor %}
-			</tr>
-		    </table>
-		</div>
+		</table>
 	    </div>
+	</div>
     </body>
 </html>

@@ -164,7 +164,6 @@ def main():
 
         script, div = components(plot, CDN)
         script_per, div_per = components(plot_per, CDN)
-        print(amount_trades, file=sys.stderr)
         return render_template("main.html",
                                js=INLINE.render_js(),
                                css=INLINE.render_css(),
