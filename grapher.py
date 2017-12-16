@@ -126,14 +126,6 @@ def main():
          y_sell_per_transaction) = get_x_y(amount_sell_minutes,
                                            divideby, sell_transactions,
                                            amount_sell)
-        '''
-        for minute in amount_sell_minutes:
-            amt = amount_sell[minute]
-            x_sell.append(minute*divideby)
-            y_sell.append(amt)
-            y_sell_per_transaction.append(
-                amt/sell_transactions[minute])
-        '''
 
         hover = HoverTool(tooltips=[
             ("index", "$index"),
