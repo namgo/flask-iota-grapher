@@ -125,7 +125,7 @@ def main():
         cursor = collection.find(
             {"$and": [{"timestamp": {"$gte": minimum}},
                       {"timestamp": {"$lte": maximum}}]}
-        ).sort("timestamp", pymongo.ASCENDING)
+        )
 
         (amount_buy,
          amount_sell,
