@@ -41,7 +41,7 @@ def get_amount_trades(cursor, divideby):
     sell_transactions = {}
     for document in cursor:
         key = math.floor(document['timestamp'] / divideby)
-        readable_key = datetime.datetime.fromtimestamp(
+        readable_key = datetime.fromtimestamp(
             int(key)
         ).strftime('%Y-%m-%d %H:%M:%S')
         if document['amount'] > 0:
