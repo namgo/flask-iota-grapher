@@ -39,11 +39,23 @@ def get_amount_trades(cursor, divideby):
     amount_trades = {}
     buy_transactions = {}
     sell_transactions = {}
+    amount_trades_per_day = {}
     for document in cursor:
         key = math.floor(document['timestamp'] / divideby)
         readable_key = datetime.fromtimestamp(
             int(math.floor((key*divideby)/1000))
         ).strftime('%Y-%m-%d %H:%M')
+        # seconds to minutes to hours to 24 hour
+        twenty_four_hour_key = datetime.fromtimestamp(
+            int(math.floor(((key*divideby)/1000)/60/60/24))
+        ).strftime('%Y-%m-%d %H:%M')
+        try:
+            amount_trades_per_day[twenty_four_hour_key]
+        except KeyError:
+            # buy amount, sell amount, # buys, # sells
+            amount_trades_per_day[twenty_four_hour_key] = [0, 0, 0, 0]
+            
+
         if document['amount'] > 0:
             try:
                 amount_buy[key]
@@ -52,6 +64,8 @@ def get_amount_trades(cursor, divideby):
                 buy_transactions[key] = 0
             amount_buy[key] += document['amount']
             buy_transactions[key] += 1
+            amount_trades_per_day[twenty_four_hour_key][0] += document['amount']
+            amount_trades_per_day[twenty_four_hour_key][2] += 1
         else:
             try:
                 amount_sell[key]
@@ -60,6 +74,8 @@ def get_amount_trades(cursor, divideby):
                 sell_transactions[key] = 0
             amount_sell[key] -= document['amount']
             sell_transactions[key] += 1
+            amount_trades_per_day[twenty_four_hour_key][1] += document['amount']
+            amount_trades_per_day[twenty_four_hour_key][3] += 1
         try:
             amount_trades[readable_key] = [
                 math.floor(amount_buy[key]),
@@ -70,10 +86,12 @@ def get_amount_trades(cursor, divideby):
         except KeyError:
             amount_trades[readable_key] = [0, 0, 0, 0]
     amount_trades = collections.OrderedDict(sorted(amount_trades.items()))
+    amount_trades_per_day = collections.OrderedDict(sorted(amount_trades_per_day.items()))
 
     return (amount_buy,
             amount_sell,
-            amount_trades, buy_transactions, sell_transactions)
+            amount_trades, buy_transactions, sell_transactions,
+            amount_trades_per_day)
 
 
 def get_x_y(amount_trade_minutes, divideby, transactions, amount_trade):
@@ -113,7 +131,8 @@ def main():
          amount_sell,
          amount_trades,
          buy_transactions,
-         sell_transactions) = get_amount_trades(
+         sell_transactions,
+         amount_trades_per_day) = get_amount_trades(
              cursor, divideby)
 
         x_buy = []
@@ -177,7 +196,8 @@ def main():
                                script=script,
                                script_per=script_per,
                                div=div, div_per=div_per,
-                               trades=amount_trades)
+                               trades=amount_trades,
+                               trades_per_day=amount_trades_per_day)
     except IndexError:
         return render_template("main.html")
 

@@ -39,6 +39,7 @@
 		    {{div_per|safe}}
 		</div>
 	    </div>
+	    <h3>Trades per interval</h3>
 	    <div class="row table-responsive">
 		<table class="table-hover table-bordered" style="border-spacing: 10px;">
 		    <tr>
@@ -59,6 +60,28 @@
 		    {% endfor %}
 		</table>
 	    </div>
+	    <h3>Trades per day</h3>
+	    <div class="row table-responsive">
+		<table class="table-hover table-bordered" style="border-spacing: 10px;">
+		    <tr>
+			<th>Date</th>
+			<th>Buy Amount</th>
+			<th>Sell Amount</th>
+			<th># Buys</th>
+			<th># Sells</th>
+		    </tr>
+		    {% for date, trade in trades_per_day.items() %}
+		    <tr>
+			<td>{{date}}</td>
+			<td>{{trade[0]}}</td>
+			<td>{{trade[1]}}</td>
+			<td>{{trade[2]}}</td>
+			<td>{{trade[3]}}</td>
+		    </tr>
+		    {% endfor %}
+		</table>
+	    </div>
+	    
 	</div>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<script>
