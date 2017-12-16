@@ -30,8 +30,7 @@ bws.on('open', () => {
 bws.on('trade', (pair, trade) => {
     for (var i = 0; i < trade.length; i++) {
 	if (trade[i] != 'tu') {
-	    console.log('trade')
-	    console.log(trade[i])
+	    console.log(trade[i+1])
 	}
     }
 })

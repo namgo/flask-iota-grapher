@@ -61,9 +61,9 @@ def get_amount_trades(cursor, divideby):
             amount_trades[key] = [amount_buy[key], amount_sell[key]]
         except KeyError:
             amount_trades[key] = [0, 0]
-        return (amount_buy,
-                amount_sell,
-                amount_trades, buy_transactions, sell_transactions)
+    return (amount_buy,
+            amount_sell,
+            amount_trades, buy_transactions, sell_transactions)
 
     
 def get_x_y(amount_trade_minutes, divideby, transactions, amount_trade):
@@ -103,7 +103,8 @@ def main():
          amount_sell,
          amount_trades,
          buy_transactions,
-         sell_transactions) = get_amount_trades(cursor, divideby)
+         sell_transactions) = get_amount_trades(
+             cursor, divideby)
 
         x_buy = []
         y_buy = []
