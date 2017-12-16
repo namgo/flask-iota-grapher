@@ -33,6 +33,56 @@ def app_js():
     return app.send_static_file("app.js")
 
 
+def get_amount_trades(cursor, divideby):
+    amount_buy = {}
+    amount_sell = {}
+    amount_trades = {}
+    buy_transactions = {}
+    sell_transactions = {}
+    for document in cursor:
+        key = math.floor(document['timestamp'] / divideby)
+        if document['amount'] > 0:
+            try:
+                amount_buy[key]
+                amount_sell[key]
+                amount_trades[key]
+            except KeyError:
+                amount_buy[key] = 0
+                amount_sell[key] = 0
+                amount_trades[key] = []
+                buy_transactions[key] = 0
+            amount_buy[key] += document['amount']
+            buy_transactions[key] += 1
+        else:
+            try:
+                amount_buy[key]
+                amount_sell[key]
+                amount_trades[key]
+            except KeyError:
+                amount_buy[key] = 0
+                amount_sell[key] = 0
+                amount_trades[key] = []
+                sell_transactions[key] = 0
+            amount_sell[key] -= document['amount']
+            sell_transactions[key] += 1
+        amount_trades[key] = [amount_buy[key], amount_sell[key]]
+        return (amount_buy,
+                amount_sell,
+                amount_trades, buy_transactions, sell_transactions)
+
+    
+def get_x_y(amount_trade_minutes, divideby, transactions, amount_trade):
+    x_trade = []
+    y_trade = []
+    y_trade_per_transaction = []
+    for minute in amount_trade_minutes:
+        amt = amount_trade[minute]
+        x_trade.append(minute*divideby)
+        y_trade.append(amt)
+        y_trade_per_transaction.append(amt/transactions[minute])
+    return (x_trade, y_trade, y_trade_per_transaction)
+
+
 @app.route("/", methods=['GET', 'POST'])
 def main():
     try:
@@ -48,42 +98,17 @@ def main():
             maximum = time.mktime(datetime.strptime(
                 request.form.get('max', None), "%Y-%m-%d").timetuple())*1000
         divideby = int(request.form.get('divideby', 0))*1000
-        amount_buy = {}
-        amount_sell = {}
-        amount_trades = {}
-        buy_transactions = {}
-        sell_transactions = {}
 
-        cursor = collection.find({"$and": [{"timestamp": {"$gte": minimum}},
-                                {"timestamp": {"$lte": maximum}}]}).sort("timestamp", pymongo.ASCENDING)
+        cursor = collection.find(
+            {"$and": [{"timestamp": {"$gte": minimum}},
+                      {"timestamp": {"$lte": maximum}}]}
+        ).sort("timestamp", pymongo.ASCENDING)
 
-        for document in cursor:
-            key = math.floor(document['timestamp'] / divideby)
-            if document['amount'] > 0:
-                try:
-                    amount_buy[key]
-                    amount_sell[key]
-                    amount_trades[key]
-                except KeyError:
-                    amount_buy[key] = 0
-                    amount_sell[key] = 0
-                    amount_trades[key] = []
-                    buy_transactions[key] = 0
-                amount_buy[key] += document['amount']
-                buy_transactions[key] += 1
-            else:
-                try:
-                    amount_buy[key]
-                    amount_sell[key]
-                    amount_trades[key]
-                except KeyError:
-                    amount_buy[key] = 0
-                    amount_sell[key] = 0
-                    amount_trades[key] = []
-                    sell_transactions[key] = 0
-                amount_sell[key] -= document['amount']
-                sell_transactions[key] += 1
-            amount_trades[key] = [amount_buy[key], amount_sell[key]]
+        (amount_buy,
+         amount_sell,
+         amount_trades,
+         buy_transactions,
+         sell_transactions) = get_amount_trades(cursor, divideby)
 
         x_buy = []
         y_buy = []
@@ -95,19 +120,24 @@ def main():
         amount_buy_minutes = sorted(amount_buy.keys())
         amount_sell_minutes = sorted(amount_sell.keys())
 
-
-        for minute in amount_buy_minutes:
-            amt = amount_buy[minute]
-            x_buy.append(minute*divideby)
-            y_buy.append(amt)
-            y_buy_per_transaction.append(amt/buy_transactions[minute])
-
+        (x_buy,
+         y_buy,
+         y_buy_per_transaction) = get_x_y(amount_buy_minutes,
+                                          divideby, buy_transactions,
+                                          amount_buy)
+        (x_sell,
+         y_sell,
+         y_sell_per_transaction) = get_x_y(amount_sell_minutes,
+                                           divideby, sell_transactions,
+                                           amount_sell)
+        '''
         for minute in amount_sell_minutes:
             amt = amount_sell[minute]
             x_sell.append(minute*divideby)
             y_sell.append(amt)
             y_sell_per_transaction.append(
                 amt/sell_transactions[minute])
+        '''
 
         hover = HoverTool(tooltips=[
             ("index", "$index"),
@@ -153,8 +183,7 @@ def main():
                                trades=amount_trades)
     except IndexError:
         return render_template("main.html")
-    
+
 
 if __name__ == "__main__":
     app.run()
-
