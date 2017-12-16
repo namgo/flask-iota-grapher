@@ -51,9 +51,9 @@ def get_amount_trades(cursor, divideby):
             buy_transactions[key] += 1
         else:
             try:
-                amount_buy[key]
+                amount_sell[key]
             except KeyError:
-                amount_buy[key] = 0
+                amount_sell[key] = 0
                 sell_transactions[key] = 0
             amount_sell[key] -= document['amount']
             sell_transactions[key] += 1
