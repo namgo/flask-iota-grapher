@@ -143,7 +143,6 @@ def main():
         plot_per.circle(x_sell, y_sell_per_transaction,
                         color="black", legend="sell")
 
-            
         script, div = components(plot, CDN)
         script_per, div_per = components(plot_per, CDN)
         print(amount_trades, file=sys.stderr)
@@ -153,7 +152,7 @@ def main():
                                script=script,
                                script_per=script_per,
                                div=div, div_per=div_per,
-                               trades=amount_trades)
+                               trades={})
     except IndexError:
         return render_template("main.html")
     
