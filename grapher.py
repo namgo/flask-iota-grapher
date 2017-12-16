@@ -41,6 +41,9 @@ def get_amount_trades(cursor, divideby):
     sell_transactions = {}
     for document in cursor:
         key = math.floor(document['timestamp'] / divideby)
+        readable_key = datetime.datetime.fromtimestamp(
+            int(key)
+        ).strftime('%Y-%m-%d %H:%M:%S')
         if document['amount'] > 0:
             try:
                 amount_buy[key]
@@ -58,9 +61,9 @@ def get_amount_trades(cursor, divideby):
             amount_sell[key] -= document['amount']
             sell_transactions[key] += 1
         try:
-            amount_trades[key] = [amount_buy[key], amount_sell[key]]
+            amount_trades[readable_key] = [amount_buy[key], amount_sell[key]]
         except KeyError:
-            amount_trades[key] = [0, 0]
+            amount_trades[readable_key] = [0, 0]
     return (amount_buy,
             amount_sell,
             amount_trades, buy_transactions, sell_transactions)

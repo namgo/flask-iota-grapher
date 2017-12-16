@@ -46,11 +46,13 @@
 			    <th>Buys</th>
 			    <th>Sells</th>
 			</tr>
+			<tr>
 		    {% for date, trade in trades.items() %}
 			<td>{{date}}</td>
 			<td>{{trade[0]}}</td>
 			<td>{{trade[1]}}</td>
 		    {% endfor %}
+			</tr>
 		    </table>
 		</div>
 	    </div>
