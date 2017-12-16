@@ -50,6 +50,7 @@ def main():
         divideby = int(request.form.get('divideby', 0))*1000
         amount_buy = {}
         amount_sell = {}
+        amount_trades = {}
         buy_transactions = {}
         sell_transactions = {}
 
@@ -61,19 +62,28 @@ def main():
             if document['amount'] > 0:
                 try:
                     amount_buy[key]
+                    amount_sell[key]
+                    amount_trades[key]
                 except KeyError:
                     amount_buy[key] = 0
+                    amount_sell[key] = 0
+                    amount_trades[key] = []
                     buy_transactions[key] = 0
                 amount_buy[key] += document['amount']
                 buy_transactions[key] += 1
             else:
                 try:
+                    amount_buy[key]
                     amount_sell[key]
+                    amount_trades[key]
                 except KeyError:
+                    amount_buy[key] = 0
                     amount_sell[key] = 0
+                    amount_trades[key] = []
                     sell_transactions[key] = 0
                 amount_sell[key] -= document['amount']
                 sell_transactions[key] += 1
+            amount_trades[key] = [amount_buy[key], amount_sell[key]]
 
         x_buy = []
         y_buy = []
@@ -84,6 +94,9 @@ def main():
         y_sell_per_transaction = []
         amount_buy_minutes = sorted(amount_buy.keys())
         amount_sell_minutes = sorted(amount_sell.keys())
+
+        # {time: [buy, sell]}
+        trades = {}
 
         for minute in amount_buy_minutes:
             amt = amount_buy[minute]
@@ -115,7 +128,6 @@ def main():
                           x_axis_type='datetime', tools=[hover,
                                                          crosshair, wheelzoom,
                                                          reset])
-        print(x_buy, file=sys.stderr)
         plot.xaxis.major_label_orientation = pi/4
         plot_per.xaxis.major_label_orientation = pi/4
         plot.line(x_buy, y_buy, color='red', line_width=2, legend="buy")
@@ -130,12 +142,17 @@ def main():
                       color="black", line_width=2, legend="sell")
         plot_per.circle(x_sell, y_sell_per_transaction,
                         color="black", legend="sell")
+
+            
         script, div = components(plot, CDN)
         script_per, div_per = components(plot_per, CDN)
         return render_template("main.html",
                                js=INLINE.render_js(),
-                               css=INLINE.render_css(), script=script,
-                               script_per=script_per, div=div, div_per=div_per)
+                               css=INLINE.render_css(),
+                               script=script,
+                               script_per=script_per,
+                               div=div, div_per=div_per,
+                               trades=amount_trades)
     except IndexError:
         return render_template("main.html")
     

@@ -39,6 +39,20 @@
 			{{div_per|safe}}
 		    </div>
 		</div>
+		<div class="row">
+		    <table>
+			<tr>
+			    <th>Date</th>
+			    <th>Buys</th>
+			    <th>Sells</th>
+			</tr>
+		    {% for date, trade in trades.items %}
+			<td>{{date}}</td>
+			<td>{{trade[0]}}</td>
+			<td>{{trade[1]}}</td>
+		    {% endfor %}
+		    </table>
+		</div>
 	    </div>
     </body>
 </html>
