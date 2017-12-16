@@ -39,12 +39,14 @@
 		    {{div_per|safe}}
 		</div>
 	    </div>
-	    <div class="row">
-		<table>
+	    <div class="row table-responsive">
+		<table class="table-hover">
 		    <tr>
 			<th>Date</th>
-			<th>Buys</th>
-			<th>Sells</th>
+			<th>Buy Amount</th>
+			<th>Sell Amount</th>
+			<th># Buys</th>
+			<th># Sells</th>
 		    </tr>
 		    {% for date, trade in trades.items() %}
 		    <tr>

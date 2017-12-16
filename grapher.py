@@ -61,14 +61,20 @@ def get_amount_trades(cursor, divideby):
             amount_sell[key] -= document['amount']
             sell_transactions[key] += 1
         try:
-            amount_trades[readable_key] = [amount_buy[key], amount_sell[key]]
+            amount_trades[readable_key] = [
+                amount_buy[key],
+                amount_sell[key],
+                buy_transactions[key],
+                sell_transactions[key]
+            ]
         except KeyError:
-            amount_trades[readable_key] = [0, 0]
+            amount_trades[readable_key] = [0, 0, 0, 0]
+
     return (amount_buy,
             amount_sell,
             amount_trades, buy_transactions, sell_transactions)
 
-    
+
 def get_x_y(amount_trade_minutes, divideby, transactions, amount_trade):
     x_trade = []
     y_trade = []
