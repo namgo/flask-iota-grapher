@@ -152,7 +152,7 @@ def main():
                                script=script,
                                script_per=script_per,
                                div=div, div_per=div_per,
-                               trades={})
+                               trades={'a': ["d", "e"]})
     except IndexError:
         return render_template("main.html")
     
