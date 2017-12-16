@@ -74,7 +74,7 @@ def get_amount_trades(cursor, divideby):
                 sell_transactions[key] = 0
             amount_sell[key] -= document['amount']
             sell_transactions[key] += 1
-            amount_trades_per_day[twenty_four_hour_key][1] += document['amount']
+            amount_trades_per_day[twenty_four_hour_key][1] -= document['amount']
             amount_trades_per_day[twenty_four_hour_key][3] += 1
         try:
             amount_trades[readable_key] = [
