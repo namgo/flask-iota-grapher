@@ -62,8 +62,8 @@ def get_amount_trades(cursor, divideby):
             sell_transactions[key] += 1
         try:
             amount_trades[readable_key] = [
-                amount_buy[key],
-                amount_sell[key],
+                math.floor(amount_buy[key]),
+                math.floor(amount_sell[key]),
                 buy_transactions[key],
                 sell_transactions[key]
             ]
