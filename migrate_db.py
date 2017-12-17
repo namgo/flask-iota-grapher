@@ -20,7 +20,7 @@ args = parser.parse_args()
 # all to ms
 minimum = (time.time()-3600)*1000
 maximum = time.time()*1000
-if args.all_entries():
+if args.all:
     minimum = 0
     all_entries = True
 
