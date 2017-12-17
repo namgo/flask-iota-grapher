@@ -56,5 +56,7 @@ for document in cursor:
 new_collection = db['trades_per_minute']
 for minute, new_document in new_documents.items():
     new_collection.insert({'timestamp': minute*1000*60,
-                       'amount': new_document['amount'],
-                       'transactions': new_document['transactions']})
+                           'amount_buy': new_document['amount_buy'],
+                           'amount_sell': new_document['amount_sell'],
+                           'transactions_buy': new_document['transactions_buy'],
+                           'transactions_sell': new_document['transactions_sell']})
