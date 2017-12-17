@@ -33,10 +33,13 @@ client = MongoClient(
 db = client.iotatracker
 
 collection = db['trades']
-cursor = collection.find(
-    {"$and": [{"timestamp": {"$gte": minimum}},
-              {"timestamp": {"$lte": maximum}}]}
-)
+if minimum == 0:
+    cursor = collection.find({})
+else:
+    cursor = collection.find(
+        {"$and": [{"timestamp": {"$gte": minimum}},
+                  {"timestamp": {"$lte": maximum}}]}
+    )
 
 new_documents = {}
 for document in cursor:

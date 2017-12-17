@@ -49,7 +49,6 @@ def get_amount_trades(cursor, divideby):
         twenty_four_hour_key = datetime.fromtimestamp(
             int(math.floor(((key*divideby)/1000)/60/60/24)*60*60*24)
         ).strftime('%Y-%m-%d %H:%M')
-        print(readable_key, file=sys.stderr)
         try:
             amount_trades_per_day[twenty_four_hour_key]
         except KeyError:
