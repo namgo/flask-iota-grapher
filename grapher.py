@@ -28,6 +28,9 @@ db = client.iotatracker
 collection = db['trades_per_minute']
 
 
+@app.route('/test.png')
+def test_png():
+    return app.send_static_file('test.png')
 
 
 @app.route("/app.js")
@@ -160,7 +163,7 @@ def main():
 
         print(x_buy, file=sys.stderr)
         plt.plot(x_buy, y_buy)
-        plt.show()
+        plt.savefig('./static/test.png')
         '''
         hover = HoverTool(tooltips=[
             ("index", "$index"),
