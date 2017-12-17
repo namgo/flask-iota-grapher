@@ -42,7 +42,6 @@ new_documents = {}
 for document in cursor:
     # seconds to minute
     minute = math.floor(document['timestamp']/1000/60)
-    print(minute*1000*60)
     try:
         new_documents[minute]
     except KeyError:
