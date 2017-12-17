@@ -7,6 +7,7 @@ individual timestamps
 from pymongo import MongoClient
 import time
 import argparse
+import math
 
 parser = argparse.ArgumentParser(description="migrate db to transactions per minute, defaults to hourly calculations")
 
@@ -40,7 +41,7 @@ cursor = collection.find(
 new_documents = {}
 for document in cursor:
     # seconds to minute
-    minute = document['timestamp']/1000/60
+    minute = math.floor(document['timestamp']/1000/60)
     try:
         new_documents[minute]
     except KeyError:
