@@ -4,7 +4,7 @@ this will save lookup times as previously we were looking up
 individual timestamps
 """
 
-import pymongo
+from pymongo import MongoClient
 import time
 import argparse
 
