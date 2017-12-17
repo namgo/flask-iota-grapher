@@ -23,7 +23,7 @@ client = MongoClient(
 
 db = client.iotatracker
 
-collection = db['trades']
+collection = db['trades_per_minute']
 
 
 
@@ -54,7 +54,6 @@ def get_amount_trades(cursor, divideby):
         except KeyError:
             # buy amount, sell amount, # buys, # sells
             amount_trades_per_day[twenty_four_hour_key] = [0, 0, 0, 0]
-            
 
         if document['amount'] > 0:
             try:
@@ -62,20 +61,20 @@ def get_amount_trades(cursor, divideby):
             except KeyError:
                 amount_buy[key] = 0
                 buy_transactions[key] = 0
-            amount_buy[key] += document['amount']
-            buy_transactions[key] += 1
-            amount_trades_per_day[twenty_four_hour_key][0] += document['amount']
-            amount_trades_per_day[twenty_four_hour_key][2] += 1
+            amount_buy[key] += document['amount_buy']
+            buy_transactions[key] += document['transactions_buy']
+            amount_trades_per_day[twenty_four_hour_key][0] += document['amount_buy']
+            amount_trades_per_day[twenty_four_hour_key][2] += document['transactions_buy']
         else:
             try:
                 amount_sell[key]
             except KeyError:
                 amount_sell[key] = 0
                 sell_transactions[key] = 0
-            amount_sell[key] -= document['amount']
-            sell_transactions[key] += 1
-            amount_trades_per_day[twenty_four_hour_key][1] -= document['amount']
-            amount_trades_per_day[twenty_four_hour_key][3] += 1
+            amount_sell[key] += document['amount_sell']
+            sell_transactions[key] += document['transactions_sell']
+            amount_trades_per_day[twenty_four_hour_key][1] += document['amount_sell']
+            amount_trades_per_day[twenty_four_hour_key][3] += document['transactions_sell']
         try:
             amount_trades[readable_key] = [
                 math.floor(amount_buy[key]),
