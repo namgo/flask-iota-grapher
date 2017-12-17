@@ -42,6 +42,7 @@ new_documents = {}
 for document in cursor:
     # seconds to minute
     minute = math.floor(document['timestamp']/1000/60)
+    print(minute*1000*60)
     try:
         new_documents[minute]
     except KeyError:
@@ -58,8 +59,10 @@ for document in cursor:
 
 new_collection = db['trades_per_minute']
 for minute, new_document in new_documents.items():
-    new_collection.insert({'timestamp': minute*1000*60,
-                           'amount_buy': new_document['amount_buy'],
-                           'amount_sell': new_document['amount_sell'],
-                           'transactions_buy': new_document['transactions_buy'],
-                           'transactions_sell': new_document['transactions_sell']})
+    new_collection.update_one({'timestamp':minute*1000*60},
+                              {'timestamp': minute*1000*60,
+                               'amount_buy': new_document['amount_buy'],
+                               'amount_sell': new_document['amount_sell'],
+                               'transactions_buy': new_document['transactions_buy'],
+                               'transactions_sell': new_document['transactions_sell']},
+                              upsert=True)
