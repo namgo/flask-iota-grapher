@@ -55,7 +55,6 @@ def get_amount_trades(cursor, divideby):
             # buy amount, sell amount, # buys, # sells
             amount_trades_per_day[twenty_four_hour_key] = [0, 0, 0, 0]
 
-        if document['amount'] > 0:
             try:
                 amount_buy[key]
             except KeyError:
@@ -65,7 +64,6 @@ def get_amount_trades(cursor, divideby):
             buy_transactions[key] += document['transactions_buy']
             amount_trades_per_day[twenty_four_hour_key][0] += document['amount_buy']
             amount_trades_per_day[twenty_four_hour_key][2] += document['transactions_buy']
-        else:
             try:
                 amount_sell[key]
             except KeyError:
