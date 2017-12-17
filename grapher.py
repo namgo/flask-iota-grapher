@@ -99,7 +99,10 @@ def get_x_y(amount_trade_minutes, divideby, transactions, amount_trade):
         amt = amount_trade[minute]
         x_trade.append(minute*divideby)
         y_trade.append(amt)
-        y_trade_per_transaction.append(amt/transactions[minute])
+        try:
+            y_trade_per_transaction.append(amt/transactions[minute])
+        except ZeroDivisionError:
+            y_trade_per_transaction.append(amt)
     return (x_trade, y_trade, y_trade_per_transaction)
 
 
