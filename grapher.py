@@ -27,6 +27,7 @@ db = client.iotatracker
 
 collection = db['trades_per_minute']
 
+plt.ioff()
 
 @app.route('/test.png')
 def test_png():
@@ -161,7 +162,6 @@ def main():
                                            divideby, sell_transactions,
                                            amount_sell)
 
-        print(x_buy, file=sys.stderr)
         plt.plot(x_buy, y_buy)
         plt.savefig('./static/test.png')
         '''
