@@ -1,3 +1,5 @@
+
+import matplotlib.pyplot as plt
 from flask import (
     Flask, request, render_template)
 from math import pi
@@ -156,6 +158,10 @@ def main():
                                            divideby, sell_transactions,
                                            amount_sell)
 
+        print(x_buy, file=sys.stderr)
+        plt.plot(x_buy, y_buy)
+        plt.show()
+        '''
         hover = HoverTool(tooltips=[
             ("index", "$index"),
             ("(x,y)", "($x, $y)")
@@ -198,6 +204,7 @@ def main():
                                div=div, div_per=div_per,
                                trades=amount_trades,
                                trades_per_day=amount_trades_per_day)
+        '''
     except IndexError:
         return render_template("main.html")
 
