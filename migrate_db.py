@@ -10,7 +10,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="migrate db to transactions per minute, defaults to hourly calculations")
 
-parser.add_argument('--all', help='Migrate all transactions to minutely')
+parser.add_argument('--all', action='store_true', help='Migrate all transactions to minutely')
 # parser.add_argument('--last_hour', help='Migrate all transactions from the last hour (quicker)')
 
 args = parser.parse_args()
@@ -20,9 +20,11 @@ args = parser.parse_args()
 # all to ms
 minimum = (time.time()-3600)*1000
 maximum = time.time()*1000
-if args.all:
-    minimum = 0
-    all_entries = True
+try:
+    if args.all:
+        minimum = 0
+except KeyError:
+    pass
 
 client = MongoClient(
     'mongodb://localhost:27017/iotatracker')
