@@ -1,6 +1,6 @@
 
 var imageApp = angular.module('ImageApp', []);
-imageApp.controller('ImageController', function($scope, $http) {
+imageApp.controller('ImageController', ['$scope', '$http', function($scope, $http) {
     $scope.sendGoBack = function() {
 	console.log('sending goback')
 	var params = $.param({
@@ -17,5 +17,4 @@ imageApp.controller('ImageController', function($scope, $http) {
 	    $scope.ImageResponse = response;
 	})
     }
-    
-})
+}])
