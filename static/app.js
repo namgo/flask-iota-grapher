@@ -4,20 +4,11 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
     $scope.goback = 1440;
     $scope.interval_back = 3600;
     $scope.sendGoBack = function() {
-	/*
-	$http({
-	    url: '/amt.png',
-	    method: "GET",
-	    params: {
-		goback: $scope.goback,
-		interval: $scope.interval_back
-	    }
-	}).then(function(data, status, headers, config) {
-	    $scope.ImageResponse = data;
-	}, function (response) {
-	    $scope.ImageResponse = "<img src"response;
-	})
-	*/
-	$scope.ImageResponse = "/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back
+	$scope.amt_url = "/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back
+	$scope.amt_div_transactions = "/amtDivTransactions.png?goback="+$scope.goback+"&interval="+$scope.interval_back
+    }
+    $scope.sendStartEnd = function() {
+	$scope.amt_url = "/amt.png?min="+$scope.min+"&max="+$scope.max
+	$scope.amt_url = "/amtDivTransactions.png?min="+$scope.min+"&max="+$scope.max
     }
 }])

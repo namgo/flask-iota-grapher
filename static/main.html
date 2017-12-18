@@ -18,14 +18,13 @@
 	    </div>
 	    <div>
 		<p>Or specify a custom date range</p>
-		<form id="dateform">
-		    Start: <input type="date" name="min" id="min">
-		    End: <input type="date" name="max" id="max">
+		    Start: <input type="date" ng-model="min" name="min" id="min">
+		    End: <input type="date" ng-model="max" name="max" id="max">
 		    Seperation interval: <input type="text" name="interval" id="interval_date" value="3600"> seconds
-		    <input type="submit">
-		</form>
+		<button ng-click="sendStartEnd()">Submit query</button>
 	    </div>
-	    <img ng-src="{{ImageResponse}}"/>
+	    <img ng-src="{{amt_url}}"/>
+	    <img ng-src="{{amt_div_transactions}}"/>
 	</div>
     </body>
 </html>
