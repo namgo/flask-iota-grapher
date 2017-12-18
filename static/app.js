@@ -3,6 +3,7 @@ var imageApp = angular.module('ImageApp', []);
 imageApp.controller('ImageController', ['$scope', '$http', function($scope, $http) {
     $scope.goback = 1440;
     $scope.interval_back = 3600;
+    $scope.interval_date = 3600;
     $scope.sendGoBack = function() {
 	$scope.amt_url = "/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back
 	$scope.amt_div_transactions = "/amtDivTransactions.png?goback="+$scope.goback+"&interval="+$scope.interval_back
