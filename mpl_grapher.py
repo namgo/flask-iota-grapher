@@ -131,9 +131,13 @@ def show_amount_trades():
         maximum = time.time() * 1000
     else:
         minimum = time.mktime(datetime.strptime(
-            request.args.get('min', None).split(' ')[:5], time_format).timetuple())*1000
+            ''.join(
+                request.args.get('min', None).split(' ')[:5], time_format)
+        ).timetuple())*1000
         maximum = time.mktime(datetime.strptime(
-            request.args.get('max', None).split(' ')[:5], time_format).timetuple())*1000
+            ''.join(
+                request.args.get('max', None).split(' ')[:5], time_format)
+        ).timetuple())*1000
 
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
@@ -173,9 +177,13 @@ def show_amt_div_transactions():
         maximum = time.time() * 1000
     else:
         minimum = time.mktime(datetime.strptime(
-            request.args.get('min', None).split(' ')[:5], time_format).timetuple())*1000
+            ''.join(
+                request.args.get('min', None).split(' ')[:5]
+            ), time_format).timetuple())*1000
         maximum = time.mktime(datetime.strptime(
-            request.args.get('max', None).split(' ')[:5], time_format).timetuple())*1000
+            ''.join(
+                request.args.get('max', None).split(' ')[:5]
+                ), time_format).timetuple())*1000
 
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
