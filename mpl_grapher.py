@@ -44,7 +44,7 @@ def get_amt(cursor, interval):
     amount_buy = {}
     amount_sell = {}
     for document in cursor:
-        key = math.floor(document['timestamp'] / interval) * interval
+        key = math.floor(document['timestamp'] / interval)
         try:
             amount_buy[key]
             amount_sell[key]
