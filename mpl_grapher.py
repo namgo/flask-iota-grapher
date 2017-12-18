@@ -120,6 +120,7 @@ def show_amount_trades():
     (x_buy, y_buy, x_sell, y_sell) = get_amt(cursor, interval)
     fig = Figure()
     ax = fig.add_subplot(111)
+    print(x_buy, file=sys.stderr)
     ax.plot_date(x_buy, y_buy)
     ax.plot_date(x_sell, y_sell)
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
