@@ -4,6 +4,7 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
     $scope.goback = 1440;
     $scope.interval_back = 3600;
     $scope.sendGoBack = function() {
+	/*
 	$http({
 	    url: '/amt.png',
 	    method: "GET",
@@ -14,7 +15,9 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 	}).then(function(data, status, headers, config) {
 	    $scope.ImageResponse = data;
 	}, function (response) {
-	    $scope.ImageResponse = response;
+	    $scope.ImageResponse = "<img src"response;
 	})
+	*/
+	$scope.ImageResponse = "<img src=/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back+" />"
     }
 }])

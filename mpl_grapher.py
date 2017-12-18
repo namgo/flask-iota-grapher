@@ -111,7 +111,6 @@ def show_amount_trades():
         maximum = time.mktime(datetime.strptime(
             request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
 
-    print(minimum, file=sys.stderr)
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
@@ -119,7 +118,6 @@ def show_amount_trades():
     )
 
     (x_buy, y_buy, x_sell, y_sell) = get_amt(cursor, interval)
-    print(x_buy, file=sys.stderr)
     dateconv = np.vectorize(datetime.fromtimestamp)
 
     # convert timestamps to datetime objects
@@ -135,7 +133,7 @@ def show_amount_trades():
     canvas = FigureCanvas(fig)
     png_output = io.BytesIO()
     canvas.print_png(png_output)
-    response = make_response(png_output.getvalue())
+    response = make_response(png_output.getvalue().data)
     response.headers['Content-Type'] = 'image/png'
     return response
 
