@@ -23,26 +23,35 @@
 		Seperation interval: <input type="text" name="interval" ng-model="interval_date" id="interval_date" value="3600"> seconds
 		<button ng-click="sendStartEnd()">Submit query</button>
 	    </div>
-	    <img ng-src="{{amt_url}}"/>
-	    <img ng-src="{{amt_div_transactions}}"/>
-	    <div>
-		<table class="table-hover table-bordered">
-		    <tr>
-			<th>Date</th>
-			<th>Buy Amount</th>
-			<th>Sell Amount</th>
-			<th># Buys</th>
-			<th># Sells</th>
-		    </tr>
-		    <tr ng-repeat="(id, x) in tabledata">
-			<td>{{ id }}</td>
-			<td>{{ x.amount_buy }}</td>
-			<td>{{ x.amount_sell }}</td>
-			<td>{{ x.transactions_buy }}</td>
-			<td>{{ x.transactions_sell }}</td>
-			{{x}}
-		    </tr>
-		</table>
+	    <div class="container">
+		<div class="row">
+		    <div class="col-sm-12">
+			<img ng-src="{{amt_url}}"/>
+		    </div>
+		    <div class="col-sm-12">
+			<img ng-src="{{amt_div_transactions}}"/>
+		    </div>
+		</div>
+		<div class="row">
+		    <div class="col-sm-12">
+			<table class="table-hover table-bordered">
+			    <tr>
+				<th>Date</th>
+				<th>Buy Amount</th>
+				<th>Sell Amount</th>
+				<th># Buys</th>
+				<th># Sells</th>
+			    </tr>
+			    <tr ng-repeat="(id, x) in tabledata">
+				<td>{{ id }}</td>
+				<td>{{ x.amount_buy }}</td>
+				<td>{{ x.amount_sell }}</td>
+				<td>{{ x.transactions_buy }}</td>
+				<td>{{ x.transactions_sell }}</td>
+			    </tr>
+			</table>
+		    </div>
+		</div>
 	    </div>
 	</div>
     </body>
