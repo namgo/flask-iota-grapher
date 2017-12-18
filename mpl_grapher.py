@@ -35,7 +35,7 @@ def get_x_y(amount_trade, interval):
     y_trade = []
     for minute in sorted(amount_trade.keys()):
         amt = amount_trade[minute]
-        x_trade.append(minute*interval)
+        x_trade.append(math.floor(minute*interval/1000))
         y_trade.append(amt)
     return (x_trade, y_trade)
 
@@ -51,9 +51,9 @@ def get_amt(cursor, interval):
         except KeyError:
             amount_buy[key] = 0
             amount_sell[key] = 0
-            amount_buy[key] += document['amount_buy']
-            amount_sell[key] += document['amount_sell']
-            (x_buy, y_buy) = get_x_y(amount_buy, interval)
+        amount_buy[key] += document['amount_buy']
+        amount_sell[key] += document['amount_sell']
+    (x_buy, y_buy) = get_x_y(amount_buy, interval)
     (x_sell, y_sell) = get_x_y(amount_sell, interval)
     return (x_buy, y_buy, x_sell, y_sell)
 
