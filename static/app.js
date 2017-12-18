@@ -8,7 +8,7 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 	$scope.amt_div_transactions = "/amtDivTransactions.png?goback="+$scope.goback+"&interval="+$scope.interval_back
     }
     $scope.sendStartEnd = function() {
-	$scope.amt_url = "/amt.png?min="+$scope.min+"&max="+$scope.max
-	$scope.amt_url = "/amtDivTransactions.png?min="+$scope.min+"&max="+$scope.max
+	$scope.amt_url = "/amt.png?min="+$scope.min+"&max="+$scope.max+"&interval="+$scope.interval_date
+	$scope.amt_url = "/amtDivTransactions.png?min="+$scope.min+"&max="+$scope.max+"&interval="+$scope.interval_date
     }
 }])
