@@ -11,6 +11,8 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 		goback: $scope.goback,
 		interval: $scope.interval_back
 	    }
+	}).then(function(response) {
+	    $scope.tabledata = response
 	})
     }
     $scope.sendStartEnd = function() {

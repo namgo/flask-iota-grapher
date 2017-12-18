@@ -34,7 +34,7 @@
 			<th># Buys</th>
 			<th># Sells</th>
 		    </tr>
-		    <tr ng-repeat="x in tabledata">
+		    <tr ng-repeat="(id, x) in tabledata">
 			<td>{{ $index }}</td>
 			<td>{{ x.amount_buy }}</td>
 			<td>{{ x.amount_sell }}</td>
