@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta charset="UTF-8">
+	<title>Monitoring IOTA trade volume with bitfinex data</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="/app.js"></script>
+    </head>
+    <body>
+	<h1>Monitoring the IOTA trade volume with data from bitfinex</h1>
+	<div ng-controller="ImageController">
+	    <div>
+		<p>How far would you like to go back?</p>
+		<form id="tracebackform">
+		    <p>Go back <input type="text" name="goback" ng-model="goback" value="1440"> minutes</p>
+		    <p>With a seperation interval of: <input type="text" ng-model="interval_back" ng-model-options="{debounce: 250}" name="interval" value="3600"> seconds</p>
+		    <input type="submit" ng-click="SendGoBack()">
+		</form>
+	    </div>
+	    <div>
+		<p>Or specify a custom date range</p>
+		<form id="dateform">
+		    Start: <input type="date" name="min" id="min">
+		    End: <input type="date" name="max" id="max">
+		    Seperation interval: <input type="text" name="interval" id="interval_date" value="3600"> seconds
+		    <input type="submit">
+		</form>
+	    </div>
+	    <div>
+		{{ ImageResponse }}
+	    </div>
+	</div>
+	<script>
+	 angular.module('ImageApp', [])
+		.controller('ImageController', function($scope, $http) {
+		    $scope.sendGoBack = function() {
+			var params = $.param({
+			    goback: $scope.goback,
+			    interval: $scope.interval
+			});
+			$http({
+			    url: '/amt.png',
+			    method: "GET",
+			    params: params
+			}).then(function(data, status, headers, config) {
+			    $scope.ImageResponse = data;
+			}, function (response) {
+			    $scope.ImageResponse = response;
+			})
+		    }
+		    
+		})
+	</script>
+    </body>
+</html>
