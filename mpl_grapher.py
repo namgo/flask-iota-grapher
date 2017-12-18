@@ -8,6 +8,7 @@ from flask import (
 from datetime import datetime
 import io
 import numpy as np
+import sys
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.dates import DateFormatter
@@ -111,6 +112,7 @@ def show_amount_trades():
             request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
 
     interval = int(request.form.get('interval', 0))*1000
+    print(interval, minimum, file=sys.stderr)
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
