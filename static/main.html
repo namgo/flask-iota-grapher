@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="ImageApp">
     <head>
 	<meta charset="UTF-8">
 	<title>Monitoring IOTA trade volume with bitfinex data</title>
@@ -7,10 +7,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script src="/app.js"></script>
     </head>
-    <body>
+    <body ng-controller="ImageController">
 	<h1>Monitoring the IOTA trade volume with data from bitfinex</h1>
-	<div ng-controller="ImageController">
-		<button ng-click="sendGoBack()">Submit query</button>
+	<div >
 	    <div>
 		<p>How far would you like to go back?</p>
 		<p>Go back <input type="text" name="goback" ng-model="goback" value="1440"> minutes</p>
