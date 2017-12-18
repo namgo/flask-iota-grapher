@@ -126,8 +126,9 @@ def show_amount_trades():
 
     fig = Figure()
     ax = fig.add_subplot(111)
-    ax.plot(buy_dates, y_buy, 'b-')
-    ax.plot(sell_dates, y_sell, 'r-')
+    buy_plot, = ax.plot(buy_dates, y_buy, 'b-', label="Buys")
+    sell_plot, = ax.plot(sell_dates, y_sell, 'r-', label="Sells")
+    ax.legend(handles=[buy_plot, sell_plot])
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
@@ -160,14 +161,21 @@ def show_amt_div_transactions():
     )
 
     (x_buy, y_buy, x_sell, y_sell) = get_amt_div_transactions(cursor, interval)
+    dateconv = np.vectorize(datetime.fromtimestamp)
+
+    # convert timestamps to datetime objects
+    buy_dates = dateconv(x_buy)
+    sell_dates = dateconv(x_sell)
+
     fig = Figure()
     ax = fig.add_subplot(111)
-    ax.plot(x_buy, y_buy, 'b-')
-    ax.plot(x_sell, y_sell, 'r-')
+    buy_plot, = ax.plot(buy_dates, y_buy, 'b-', legend="Buys")
+    sell_plot, = ax.plot(sell_dates, y_sell, 'r-', legend="Sells")
+    ax.legend(handles=[buy_plot, sell_plot])
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
-    png_output = StringIO.StringIO()
+    png_output = io.BytesIO()
     canvas.print_png(png_output)
     response = make_response(png_output.getvalue())
     response.headers['Content-Type'] = 'image/png'
