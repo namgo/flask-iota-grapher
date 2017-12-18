@@ -102,9 +102,7 @@ def get_amt_div_transactions(cursor, interval):
 def show_amount_trades():
     if not request.args.get('min', None):
         minimum = (
-            time.time() - int(
-                request.args.get('goback', 0)
-            ) * 60 * 1000
+            time.time() - (int(request.args.get('goback', 0)) * 60 * 1000)
         )
         maximum = time.time() * 1000
     else:
