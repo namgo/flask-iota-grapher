@@ -35,7 +35,7 @@ def get_x_y(amount_trade, interval):
     y_trade = []
     for minute in sorted(amount_trade.keys()):
         amt = amount_trade[minute]
-        x_trade.append(math.floor(minute*interval))
+        x_trade.append(math.floor((minute*interval)/1000))
         y_trade.append(amt)
     return (x_trade, y_trade)
 
