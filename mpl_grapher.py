@@ -31,6 +31,9 @@ db = client.iotatracker
 
 collection = db['trades_per_minute']
 
+# 'Fri Dec 15 2017 00:00:00 GMT-0500 (Eastern Standard Time)'
+time_format = "%a %b %d %Y %X"
+
 
 def get_x_y(amount_trade, interval):
     x_trade = []
@@ -128,9 +131,9 @@ def show_amount_trades():
         maximum = time.time() * 1000
     else:
         minimum = time.mktime(datetime.strptime(
-            request.args.get('min', None), "%Y-%m-%d").timetuple())*1000
+            request.args.get('min', None).split(' ')[:5], time_format).timetuple())*1000
         maximum = time.mktime(datetime.strptime(
-            request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
+            request.args.get('max', None).split(' ')[:5], time_format).timetuple())*1000
 
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
@@ -170,9 +173,9 @@ def show_amt_div_transactions():
         maximum = time.time() * 1000
     else:
         minimum = time.mktime(datetime.strptime(
-            request.args.get('min', None), "%Y-%m-%d").timetuple())*1000
+            request.args.get('min', None).split(' ')[:5], time_format).timetuple())*1000
         maximum = time.mktime(datetime.strptime(
-            request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
+            request.args.get('max', None).split(' ')[:5], time_format).timetuple())*1000
 
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
