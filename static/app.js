@@ -2,6 +2,7 @@
 var imageApp = angular.module('ImageApp', []);
 imageApp.controller('ImageController', function($scope, $http) {
     $scope.sendGoBack = function() {
+	console.log('sending goback')
 	var params = $.param({
 	    goback: $scope.goback,
 	    interval: $scope.interval
