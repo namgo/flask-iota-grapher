@@ -113,6 +113,7 @@ def show_amount_trades():
         maximum = time.mktime(datetime.strptime(
             request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
 
+    print(minimum, file=sys.stderr)
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
