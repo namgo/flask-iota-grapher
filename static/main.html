@@ -36,8 +36,8 @@
 		    </tr>
 		    <tr ng-repeat="(id, x) in tabledata">
 			<td>{{ id }}</td>
-			<td>{{ x.amount_buy }}</td>
-			<td>{{ x.amount_sell }}</td>
+			<td>{{ Math.floor(x.amount_buy) }}</td>
+			<td>{{ Math.floor(x.amount_sell) }}</td>
 			<td>{{ x.transactions_buy }}</td>
 			<td>{{ x.transactions_sell }}</td>
 			{{x}}
