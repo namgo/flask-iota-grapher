@@ -122,12 +122,15 @@ def show_amount_trades():
     (x_buy, y_buy, x_sell, y_sell) = get_amt(cursor, interval)
     print(x_buy, file=sys.stderr)
     dateconv = np.vectorize(datetime.fromtimestamp)
-    buy_dates = dateconv(x_buy) # convert timestamps to datetime objects
-    sell_dates = dateconv(x_sell) # convert timestamps to datetime objects
+
+    # convert timestamps to datetime objects
+    buy_dates = dateconv(x_buy)
+    sell_dates = dateconv(x_sell)
+
     fig = Figure()
     ax = fig.add_subplot(111)
-    ax.plot_date(buy_dates, y_buy)
-    ax.plot_date(sell_dates, y_sell)
+    ax.plot(buy_dates, y_buy, 'b-')
+    ax.plot(sell_dates, y_sell, 'r-')
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
