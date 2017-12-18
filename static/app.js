@@ -12,7 +12,7 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 		interval: $scope.interval_back
 	    }
 	}).then(function(response) {
-	    $scope.tabledata = response
+	    $scope.tabledata = response.data
 	})
     }
     $scope.sendStartEnd = function() {
