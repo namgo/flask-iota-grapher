@@ -64,6 +64,9 @@ def get_dict_of_transactions(cursor, interval):
         ret[key]['amount_sell'] += document['amount_sell']
         ret[key]['transactions_buy'] += document['transactions_buy']
         ret[key]['transactions_sell'] += document['transactions_sell']
+    for key, val in ret.items():
+        ret[key]['amount_buy'] = math.floor(ret[key]['amount_buy'])
+        ret[key]['amount_sell'] = math.floor(ret[key]['amount_sell'])
     return ret
 
 def get_amt(cursor, interval):
