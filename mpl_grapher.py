@@ -9,6 +9,8 @@ from datetime import datetime
 import io
 import numpy as np
 import sys
+import matplotlib.dates as md
+import datetime as dt
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.dates import DateFormatter
@@ -119,10 +121,13 @@ def show_amount_trades():
 
     (x_buy, y_buy, x_sell, y_sell) = get_amt(cursor, interval)
     print(x_buy, file=sys.stderr)
+    dateconv = np.vectorize(datetime.datetime.fromtimestamp)
+    buy_dates = dateconv(x_buy) # convert timestamps to datetime objects
+    sell_dates = dateconv(x_sell) # convert timestamps to datetime objects
     fig = Figure()
     ax = fig.add_subplot(111)
-    ax.plot_date(x_buy, y_buy)
-    ax.plot_date(x_sell, y_sell)
+    ax.plot_date(buy_dates, y_buy)
+    ax.plot_date(sell_dates, y_sell)
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
