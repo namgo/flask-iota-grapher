@@ -121,7 +121,7 @@ def show_amount_trades():
 
     (x_buy, y_buy, x_sell, y_sell) = get_amt(cursor, interval)
     print(x_buy, file=sys.stderr)
-    dateconv = np.vectorize(datetime.datetime.fromtimestamp)
+    dateconv = np.vectorize(datetime.fromtimestamp)
     buy_dates = dateconv(x_buy) # convert timestamps to datetime objects
     sell_dates = dateconv(x_sell) # convert timestamps to datetime objects
     fig = Figure()
