@@ -162,7 +162,7 @@ def show_amt_div_transactions():
     (x_buy, y_buy, x_sell, y_sell) = get_amt_div_transactions(cursor, interval)
     fig = Figure()
     ax = fig.add_subplot(111)
-    ax.plot(x_buy, y_buy)
+    ax.plot(x_buy, y_buy, linestyle='solid')
     ax.plot(x_sell, y_sell)
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
