@@ -132,12 +132,12 @@ def show_amount_trades():
     else:
         minimum = time.mktime(datetime.strptime(
             ' '.join(
-                request.args.get('min', None).split(' ')[:5], time_format)
-        ).timetuple())*1000
+                request.args.get('min', None).split(' ')[:5]
+            ), time_format).timetuple())*1000
         maximum = time.mktime(datetime.strptime(
             ' '.join(
-                request.args.get('max', None).split(' ')[:5], time_format)
-        ).timetuple())*1000
+                request.args.get('max', None).split(' ')[:5]
+            ), time_format).timetuple())*1000
 
     interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
