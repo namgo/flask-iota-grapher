@@ -133,7 +133,7 @@ def show_amount_trades():
     canvas = FigureCanvas(fig)
     png_output = io.BytesIO()
     canvas.print_png(png_output)
-    response = make_response(png_output.getvalue().data)
+    response = make_response(png_output.getvalue())
     response.headers['Content-Type'] = 'image/png'
     return response
 
