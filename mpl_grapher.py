@@ -41,6 +41,27 @@ def get_x_y(amount_trade, interval):
         y_trade.append(amt)
     return (x_trade, y_trade)
 
+def get_dict_of_transactions(cursor, interval):
+    ret = {}
+    for document in cursor:
+        key = math.floor(document['timestamp'] / interval)
+        key = datetime.fromtimestamp(
+            int(math.floor((key*interval)/1000))
+        ).strftime('%Y-%m-%d %H:%M')
+        try:
+            ret[key]
+        except KeyError:
+            ret[key] = {
+                'amount_buy': 0,
+                'amount_sell': 0,
+                'transactions_buy': 0,
+                'transactions_sell': 0
+            }
+        ret[key]['amount_buy'] += document['amount_buy']
+        ret[key]['amount_sell'] += document['amount_sell']
+        ret[key]['transactions_buy'] += document['transactions_buy']
+        ret[key]['transactions_sell'] += document['transactions_sell']
+    return ret
 
 def get_amt(cursor, interval):
     amount_buy = {}
@@ -138,6 +159,7 @@ def show_amount_trades():
     response.headers['Content-Type'] = 'image/png'
     return response
 
+            
 
 @app.route('/amtDivTransactions.png')
 def show_amt_div_transactions():
@@ -200,6 +222,8 @@ def generate_table():
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
     )
+    transactions = get_dict_of_transactions(cursor, interval)
+    return(jsonify(transactions))
 
 
 @app.route('/')

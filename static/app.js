@@ -6,6 +6,12 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
     $scope.sendGoBack = function() {
 	$scope.amt_url = "/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back
 	$scope.amt_div_transactions = "/amtDivTransactions.png?goback="+$scope.goback+"&interval="+$scope.interval_back
+	$http.get('/table.json', {
+	    params: {
+		goback: $scope.goback,
+		interval: $scope.interval_back
+	    }
+	})
     }
     $scope.sendStartEnd = function() {
 	$scope.amt_url = "/amt.png?min="+$scope.min+"&max="+$scope.max+"&interval="+$scope.interval_date
