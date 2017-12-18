@@ -5,8 +5,8 @@ from flask import (
     make_response,
     jsonify
 )
-import StringIO
 from datetime import datetime
+import io
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
@@ -124,7 +124,7 @@ def show_amount_trades():
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
-    png_output = StringIO.StringIO()
+    png_output = io.StringIO()
     canvas.print_png(png_output)
     response = make_response(png_output.getvalue())
     response.headers['Content-Type'] = 'image/png'
