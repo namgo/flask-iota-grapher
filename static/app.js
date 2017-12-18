@@ -11,4 +11,5 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 	$scope.amt_url = "/amt.png?min="+$scope.min+"&max="+$scope.max+"&interval="+$scope.interval_date
 	$scope.amt_url = "/amtDivTransactions.png?min="+$scope.min+"&max="+$scope.max+"&interval="+$scope.interval_date
     }
+    $scope.sendGoBack();
 }])
