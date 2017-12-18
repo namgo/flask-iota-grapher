@@ -18,6 +18,6 @@ imageApp.controller('ImageController', ['$scope', '$http', function($scope, $htt
 	    $scope.ImageResponse = "<img src"response;
 	})
 	*/
-	$scope.ImageResponse = "<img src=/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back+" />"
+	$scope.ImageResponse = "/amt.png?goback="+$scope.goback+"&interval="+$scope.interval_back
     }
 }])
