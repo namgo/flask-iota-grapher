@@ -228,7 +228,7 @@ def generate_table():
         maximum = time.mktime(datetime.strptime(
             request.args.get('max', None), "%Y-%m-%d").timetuple())*1000
 
-    interval = int(request.form.get('interval', 0))*1000
+    interval = int(request.args.get('interval', 0))*1000
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
