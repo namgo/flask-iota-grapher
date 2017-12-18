@@ -12,11 +12,9 @@
 	<div ng-controller="ImageController">
 	    <div>
 		<p>How far would you like to go back?</p>
-		<form id="tracebackform">
-		    <p>Go back <input type="text" name="goback" ng-model="goback" value="1440"> minutes</p>
-		    <p>With a seperation interval of: <input type="text" ng-model="interval_back" ng-model-options="{debounce: 250}" name="interval" value="3600"> seconds</p>
-		    <input type="submit" ng-click="SendGoBack()">
-		</form>
+		<p>Go back <input type="text" name="goback" ng-model="goback" value="1440"> minutes</p>
+		<p>With a seperation interval of: <input type="text" ng-model="interval_back" ng-model-options="{debounce: 250}" name="interval" value="3600"> seconds</p>
+		<button ng-click="SendGoBack()">Submit Query</button>
 	    </div>
 	    <div>
 		<p>Or specify a custom date range</p>
