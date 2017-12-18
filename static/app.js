@@ -2,15 +2,13 @@
 var imageApp = angular.module('ImageApp', []);
 imageApp.controller('ImageController', ['$scope', function($scope, $http) {
     $scope.sendGoBack = function() {
-	console.log('sending goback')
-	var params = $.param({
-	    goback: $scope.goback,
-	    interval: $scope.interval
-	});
 	$http({
 	    url: '/amt.png',
 	    method: "GET",
-	    params: params
+	    params: {
+		goback: $scope.goback,
+		interval: $scope.interval
+	    }
 	}).then(function(data, status, headers, config) {
 	    $scope.ImageResponse = data;
 	}, function (response) {
