@@ -70,6 +70,32 @@ def get_dict_of_transactions(cursor, interval):
         ret[key]['amount_sell'] = math.floor(ret[key]['amount_sell'])
     return ret
 
+
+def get_dict_of_transactions_per_day(cursor, interval):
+    ret = {}
+    for document in cursor:
+        key = math.floor(document['timestamp'] / interval)
+        key = datetime.fromtimestamp(
+            int(math.floor((key*interval)/1000))
+        ).strftime('%Y-%m-%d')
+        try:
+            ret[key]
+        except KeyError:
+            ret[key] = {
+                'amount_buy': 0,
+                'amount_sell': 0,
+                'transactions_buy': 0,
+                'transactions_sell': 0
+            }
+        ret[key]['amount_buy'] += document['amount_buy']
+        ret[key]['amount_sell'] += document['amount_sell']
+        ret[key]['transactions_buy'] += document['transactions_buy']
+        ret[key]['transactions_sell'] += document['transactions_sell']
+    for key, val in ret.items():
+        ret[key]['amount_buy'] = math.floor(ret[key]['amount_buy'])
+        ret[key]['amount_sell'] = math.floor(ret[key]['amount_sell'])
+    return ret
+
 def get_amt(cursor, interval):
     amount_buy = {}
     amount_sell = {}
@@ -254,6 +280,32 @@ def generate_table():
     transactions = get_dict_of_transactions(cursor, interval)
     return(jsonify(transactions))
 
+@app.route('/table_per_day.json')
+def generate_table():
+    if not request.args.get('min', None):
+        minimum = (
+            time.time() - int(
+                request.args.get('goback', 0)
+            ) * 60 * 1000
+        )
+        maximum = time.time() * 1000
+    else:
+        minimum = time.mktime(datetime.strptime(
+            ' '.join(
+                request.args.get('min', None).split(' ')[:5]
+            ), time_format).timetuple())*1000
+        maximum = time.mktime(datetime.strptime(
+            ' '.join(
+                request.args.get('max', None).split(' ')[:5]
+                ), time_format).timetuple())*1000
+
+    interval = int(request.args.get('interval', 0))*1000
+    cursor = collection.find(
+        {"$and": [{"timestamp": {"$gte": minimum}},
+                  {"timestamp": {"$lte": maximum}}]}
+    )
+    transactions = get_dict_of_transactions_per_day(cursor, interval)
+    return(jsonify(transactions))
 
 @app.route('/')
 def main():
