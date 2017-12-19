@@ -10,6 +10,7 @@ import io
 import numpy as np
 import sys
 import matplotlib.dates as md
+from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 import datetime as dt
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
@@ -163,9 +164,9 @@ def show_amount_trades():
     buy_plot, = ax.plot(buy_dates, y_buy, 'b-', label="Buys")
     sell_plot, = ax.plot(sell_dates, y_sell, 'r-', label="Sells")
     ax.legend(handles=[buy_plot, sell_plot])
-    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
+    ax.yaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     ax.set_title("AMT of trades")
-    ax.get_xaxis().get_major_formatter().set_useOffset(False)
+    ax.xaxis.set_major_formatter(FormatStrFormatter('%.0f'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
     png_output = io.BytesIO()
