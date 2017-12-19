@@ -30,6 +30,7 @@
 	    <div class="container">
 		<div class="row">
 		    <div class="col-sm-12">
+			<h3>Trades</h3>
 			<table class="table-hover table-bordered">
 			    <tr>
 				<th>Date</th>
@@ -39,6 +40,25 @@
 				<th># Sells</th>
 			    </tr>
 			    <tr ng-repeat="(id, x) in tabledata">
+				<td>{{ id }}</td>
+				<td>{{ x.amount_buy }}</td>
+				<td>{{ x.amount_sell }}</td>
+				<td>{{ x.transactions_buy }}</td>
+				<td>{{ x.transactions_sell }}</td>
+			    </tr>
+			</table>
+		    </div>
+		    <div class="col-sm-12">
+			<h3>Trades Per Day</h3>
+			<table class="table-hover table-bordered">
+			    <tr>
+				<th>Date</th>
+				<th>Buy Amount</th>
+				<th>Sell Amount</th>
+				<th># Buys</th>
+				<th># Sells</th>
+			    </tr>
+			    <tr ng-repeat="(id, x) in tabledata_per_day">
 				<td>{{ id }}</td>
 				<td>{{ x.amount_buy }}</td>
 				<td>{{ x.amount_sell }}</td>
