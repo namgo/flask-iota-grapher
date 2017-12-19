@@ -91,7 +91,10 @@ def amt_div_transactions(transactions, amount):
     minutes = sorted(amount.keys())
     ret = {}
     for minute in minutes:
-        ret[minute] = amount[minute]/transactions[minute]
+        try:
+            ret[minute] = amount[minute]/transactions[minute]
+        except ZeroDivisionError:
+            ret[minute] = amount[minute]
     return ret
 
 
