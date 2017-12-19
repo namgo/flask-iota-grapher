@@ -35,6 +35,26 @@ collection = db['trades_per_minute']
 # 'Fri Dec 15 2017 00:00:00 GMT-0500 (Eastern Standard Time)'
 time_format = "%a %b %d %Y %X"
 
+def min_max(request):
+    if not request.args.get('min', None):
+        minimum = (
+            time.time() - int(
+                request.args.get('goback', 0)
+            ) * 60 * 1000
+        )
+        maximum = time.time() * 1000
+    else:
+        minimum = time.mktime(datetime.strptime(
+            ' '.join(
+                request.args.get('min', None).split(' ')[:5]
+            ), time_format).timetuple())*1000
+        maximum = time.mktime(datetime.strptime(
+            ' '.join(
+                request.args.get('max', None).split(' ')[:5]
+                ), time_format).timetuple())*1000
+
+    interval = int(request.args.get('interval', 0))*1000
+    return (minimum, maximum, interval)
 
 def get_x_y(amount_trade, interval):
     x_trade = []
@@ -157,22 +177,7 @@ def get_amt_div_transactions(cursor, interval):
 
 @app.route('/amt.png', methods=['GET'])
 def show_amount_trades():
-    if not request.args.get('min', None):
-        minimum = (
-            time.time() - int(request.args.get('goback', 0)) * 60
-        ) * 1000
-        maximum = time.time() * 1000
-    else:
-        minimum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('min', None).split(' ')[:5]
-            ), time_format).timetuple())*1000
-        maximum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('max', None).split(' ')[:5]
-            ), time_format).timetuple())*1000
-
-    interval = int(request.args.get('interval', 0))*1000
+    (minimum, maximum, interval) = min_max(request)
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
@@ -207,22 +212,7 @@ def show_amount_trades():
 
 @app.route('/amtDivTransactions.png')
 def show_amt_div_transactions():
-    if not request.args.get('min', None):
-        minimum = (
-            time.time() - int(request.args.get('goback', 0)) * 60
-        ) * 1000
-        maximum = time.time() * 1000
-    else:
-        minimum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('min', None).split(' ')[:5]
-            ), time_format).timetuple())*1000
-        maximum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('max', None).split(' ')[:5]
-                ), time_format).timetuple())*1000
-
-    interval = int(request.args.get('interval', 0))*1000
+    (minimum, maximum, interval) = min_max(request)
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
@@ -255,24 +245,7 @@ def show_amt_div_transactions():
 
 @app.route('/table.json')
 def generate_table():
-    if not request.args.get('min', None):
-        minimum = (
-            time.time() - int(
-                request.args.get('goback', 0)
-            ) * 60 * 1000
-        )
-        maximum = time.time() * 1000
-    else:
-        minimum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('min', None).split(' ')[:5]
-            ), time_format).timetuple())*1000
-        maximum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('max', None).split(' ')[:5]
-                ), time_format).timetuple())*1000
-
-    interval = int(request.args.get('interval', 0))*1000
+    (minimum, maximum, interval) = min_max(request)
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
@@ -282,24 +255,7 @@ def generate_table():
 
 @app.route('/table_per_day.json')
 def generate_table_per_day():
-    if not request.args.get('min', None):
-        minimum = (
-            time.time() - int(
-                request.args.get('goback', 0)
-            ) * 60 * 1000
-        )
-        maximum = time.time() * 1000
-    else:
-        minimum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('min', None).split(' ')[:5]
-            ), time_format).timetuple())*1000
-        maximum = time.mktime(datetime.strptime(
-            ' '.join(
-                request.args.get('max', None).split(' ')[:5]
-                ), time_format).timetuple())*1000
-
-    interval = int(request.args.get('interval', 0))*1000
+    (minimum, maximum, interval) = min_max(request)
     cursor = collection.find(
         {"$and": [{"timestamp": {"$gte": minimum}},
                   {"timestamp": {"$lte": maximum}}]}
