@@ -210,7 +210,7 @@ def show_amt_div_transactions():
     buy_plot, = ax.plot(buy_dates, y_buy, 'b-', label="Buys")
     sell_plot, = ax.plot(sell_dates, y_sell, 'r-', label="Sells")
     ax.legend(handles=[buy_plot, sell_plot])
-    ax.set_title("# trades/AMT")
+    ax.set_title("AMT/TRANSACTIONS")
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
