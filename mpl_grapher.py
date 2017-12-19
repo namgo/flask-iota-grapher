@@ -281,7 +281,7 @@ def generate_table():
     return(jsonify(transactions))
 
 @app.route('/table_per_day.json')
-def generate_table():
+def generate_table_per_day():
     if not request.args.get('min', None):
         minimum = (
             time.time() - int(
