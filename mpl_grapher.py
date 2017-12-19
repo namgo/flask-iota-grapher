@@ -165,6 +165,7 @@ def show_amount_trades():
     ax.legend(handles=[buy_plot, sell_plot])
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
     ax.set_title("AMT of trades")
+    ax.get_xaxis().get_major_formatter().set_useOffset(False)
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
     png_output = io.BytesIO()
