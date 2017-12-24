@@ -2,7 +2,6 @@
 
 
 ## How to use:
-Ignore the nodejs stuff, the original script was written in it but I found writing everything in python to be more convenient
 
 `pip3 install -r requirements.txt`
 
