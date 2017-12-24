@@ -15,3 +15,7 @@ in one tab run
 in the other run
 
 `python3 grapher.py` or set up apache to use `grapher.wsgi` (guide is here: http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/)
+
+## Also
+
+I should have used branches, sorry for the commit mess
